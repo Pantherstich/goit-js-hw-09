@@ -1,5 +1,25 @@
+import flatpickr from 'flatpickr';
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
 
+const days = document.querySelector('[data-days]');
+const hours = document.querySelector('[data-hours]');
+const minutes = document.querySelector('[data-minutes]');
+const seconds = document.querySelector('[data-seconds]');
+const startButton = document.querySelector('button[data-start]');
+const datetimePicker.document.querySelector('#datetime-picker')
+
+startButton.disabled = true;
+startButton.addEventListener('click', clickStart);
+datetimePicker.addEventListener('click', dateChoser)
+
+function dateChoser() {
+    
+}
+
+function clickStart() {
+    
+}
 
 const options = {
   enableTime: true,

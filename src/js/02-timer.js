@@ -7,11 +7,12 @@ const hours = document.querySelector('[data-hours]');
 const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector('[data-seconds]');
 const startButton = document.querySelector('button[data-start]');
-const datetimePicker.document.querySelector('#datetime-picker')
+const datetimePicker = document.querySelector('#datetime-picker')
 
 startButton.disabled = true;
 startButton.addEventListener('click', clickStart);
 datetimePicker.addEventListener('click', dateChoser)
+
 
 function dateChoser() {
     
@@ -30,6 +31,9 @@ const options = {
     console.log(selectedDates[0]);
   },
 };
+flatpickr(datetimePicker, options);
+
+
 
 
 function convertMs(ms) {

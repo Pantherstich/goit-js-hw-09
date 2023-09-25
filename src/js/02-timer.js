@@ -11,16 +11,21 @@ const datetimePicker = document.querySelector('#datetime-picker')
 
 startButton.disabled = true;
 startButton.addEventListener('click', clickStart);
-datetimePicker.addEventListener('click', dateChoser)
-
-
-function dateChoser() {
-    
-}
-
+let period = null;
 function clickStart() {
     
 }
+function dateSelection(selectedDate) {
+  if (selectedDate <= options.defaultDate.getTime()) {
+    Notiflix.Notify.failure('Please choose a date in the future')
+  } else {
+      startButton.disabled = false;
+      period = selectedDate - options.defaultDate.getTime();
+      console.log(period);
+  }
+}
+
+
 
 const options = {
   enableTime: true,
@@ -28,13 +33,10 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    dateSelection(selectedDates[0]);
   },
 };
 flatpickr(datetimePicker, options);
-
-
-
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -54,7 +56,3 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-
-console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}

@@ -2,42 +2,46 @@ import flatpickr from 'flatpickr';
 import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
 
-const days = document.querySelector('[data-days]');
-const hours = document.querySelector('[data-hours]');
-const minutes = document.querySelector('[data-minutes]');
-const seconds = document.querySelector('[data-seconds]');
-const startButton = document.querySelector('button[data-start]');
-const datetimePicker = document.querySelector('#datetime-picker')
 
-startButton.disabled = true;
-startButton.addEventListener('click', clickStart);
+const
+  refs = {
+    days: document.querySelector('[data-days]'),
+     hours: document.querySelector('[data-hours]'),
+     minutes: document.querySelector('[data-minutes]'),
+     seconds: document.querySelector('[data-seconds]'),
+     startButton: document.querySelector('button[data-start]'),
+     datetimePicker: document.querySelector('#datetime-picker'),
+  }
+refs.startButton.disabled = true;
+refs.startButton.addEventListener('click', clickStart);
 let period = null;
-let dateSelectionInSec;
 
 function clickStart() {
-  startButton.disabled = true;
-  let timeComponents = convertMs(period);
-  let timeComponentsInMilliseconds = timeToMilliseconds(timeComponents);
+  refs.startButton.disabled = true;
+  refs.datetimePicker.disabled = true;
 
-  updateDate(timeComponents);
-  interval = setInterval(() => {
-    timeComponentsInMilliseconds -= 1000;
-    const dateUpdate = convertMs(timeComponentsInMilliseconds);
-    updateDate(dateUpdate);
-    if (timeComponentsInMilliseconds <= 0) {
-      clearInterval(interval)
-    }
-
-    
+timer = setInterval(() => {
+  convertPeriod = convertMs(period);
+  period -= 1000;
+  refs.days.textContent = convertPeriod.days;
+  refs.hours.textContent = convertPeriod.hours;
+  refs.minutes.textContent = convertPeriod.minutes;
+  refs.seconds.textContent = convertPeriod.seconds;
+  if (period <= 0) {
+      clearInterval(timer)
+    }    
   }, 1000)
 }
+
+
+
 function dateSelection(selectedDate) {
+    setDate = selectedDate.getTime();
   if (selectedDate <= options.defaultDate.getTime()) {
     Notiflix.Notify.failure('Please choose a date in the future')
   } else {
-      startButton.disabled = false;
-      period = selectedDate - options.defaultDate.getTime();
-      console.log(period);
+      refs.startButton.disabled = false;
+      period = setDate - options.defaultDate.getTime();
   }
 }
 
@@ -50,10 +54,9 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     dateSelection(selectedDates[0]);
-    dateSelectionInSec = dateSelection.getTime();  
   },
 };
-flatpickr(datetimePicker, options);
+flatpickr(refs.datetimePicker, options);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time

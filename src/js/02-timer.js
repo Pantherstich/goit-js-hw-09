@@ -12,8 +12,24 @@ const datetimePicker = document.querySelector('#datetime-picker')
 startButton.disabled = true;
 startButton.addEventListener('click', clickStart);
 let period = null;
+let dateSelectionInSec;
+
 function clickStart() {
+  startButton.disabled = true;
+  let timeComponents = convertMs(period);
+  let timeComponentsInMilliseconds = timeToMilliseconds(timeComponents);
+
+  updateDate(timeComponents);
+  interval = setInterval(() => {
+    timeComponentsInMilliseconds -= 1000;
+    const dateUpdate = convertMs(timeComponentsInMilliseconds);
+    updateDate(dateUpdate);
+    if (timeComponentsInMilliseconds <= 0) {
+      clearInterval(interval)
+    }
+
     
+  }, 1000)
 }
 function dateSelection(selectedDate) {
   if (selectedDate <= options.defaultDate.getTime()) {
@@ -34,6 +50,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     dateSelection(selectedDates[0]);
+    dateSelectionInSec = dateSelection.getTime();  
   },
 };
 flatpickr(datetimePicker, options);

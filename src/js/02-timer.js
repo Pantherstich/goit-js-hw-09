@@ -39,7 +39,7 @@ timer = setInterval(() => {
 
 
 function dateSelection(selectedDate) {
-    setDate = selectedDate.getTime();
+    let setDate = selectedDate.getTime();
   if (selectedDate <= options.defaultDate.getTime()) {
     Notiflix.Notify.failure('Please choose a date in the future')
   } else {

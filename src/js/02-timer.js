@@ -23,7 +23,7 @@ function clickStart() {
   refs.startButton.disabled = true;
   refs.datetimePicker.disabled = true;
 
-timer = setInterval(() => {
+const timer = setInterval(() => {
   convertPeriod = convertMs(period);
   period -= 1000;
   refs.days.textContent = convertPeriod.days;
@@ -39,7 +39,7 @@ timer = setInterval(() => {
 
 
 function dateSelection(selectedDate) {
-    let setDate = selectedDate.getTime();
+    const  setDate = selectedDate.getTime();
   if (selectedDate <= options.defaultDate.getTime()) {
     Notiflix.Notify.failure('Please choose a date in the future')
   } else {

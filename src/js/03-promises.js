@@ -37,6 +37,5 @@ function fromSubmit(e) {
           );
         });
     }
-    e.currentTarget.reset();
   }
 }

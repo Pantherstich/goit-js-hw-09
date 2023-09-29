@@ -5,7 +5,7 @@ const backgtound = document.querySelector('body');
 startButton.addEventListener('click', clickStart);
 stopButton.addEventListener('click', clickStop);
 
-let Change = null;
+let change = null;
 stopButton.disabled = true;
 
 function clickStart() {

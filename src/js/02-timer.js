@@ -5,7 +5,7 @@ import Notiflix from 'notiflix';
 
 const
   refs = {
-    days: document.querySelector('[data-days]'),
+     days: document.querySelector('[data-days]'),
      hours: document.querySelector('[data-hours]'),
      minutes: document.querySelector('[data-minutes]'),
      seconds: document.querySelector('[data-seconds]'),
@@ -24,7 +24,7 @@ function clickStart() {
   refs.datetimePicker.disabled = true;
 
 const timer = setInterval(() => {
-  convertPeriod = convertMs(period);
+  let convertPeriod = convertMs(period);
   period -= 1000;
   refs.days.textContent = convertPeriod.days;
   refs.hours.textContent = convertPeriod.hours;
@@ -87,8 +87,6 @@ function convertMs(ms) {
       return paddedString.padStart(2, '0');
     }
 }
-  
-
 
 const countdown = document.querySelector('.timer')
 countdown.style.display = 'flex';
@@ -104,3 +102,4 @@ for (const field of fields) {
   for (const span of spans) {
     span.style.fontSize = '24px';
   }
+}

@@ -11,12 +11,12 @@ stopButton.disabled = true;
 function clickStart() {
 stopButton.disabled = false;
 startButton.disabled = true;
-Change = setInterval(bgColorChange, 1000)
+change = setInterval(bgColorChange, 1000)
 }
 function clickStop() {
 stopButton.disabled = true;
 startButton.disabled = false;
-    clearInterval(Change);
+    clearInterval(change);
 }
 function bgColorChange() {
     backgtound.style.backgroundColor = getRandomHexColor()

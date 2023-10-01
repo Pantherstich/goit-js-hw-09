@@ -1,6 +1,7 @@
 import flatpickr from 'flatpickr';
 import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
+addResetButton();
 
 
 const
@@ -9,21 +10,36 @@ const
      hours: document.querySelector('[data-hours]'),
      minutes: document.querySelector('[data-minutes]'),
      seconds: document.querySelector('[data-seconds]'),
+     datetimePicker: document.querySelector('#datetime-picker'),  
      startButton: document.querySelector('button[data-start]'),
-     datetimePicker: document.querySelector('#datetime-picker'),
+     resetButton: document.querySelector('button[data-reset]')
   }
 
+function addResetButton() {
+  const startButton = document.querySelector("button[data-start]");
+  const resetButton = document.createElement("button");
+  resetButton.setAttribute("type", "button");
+  resetButton.setAttribute("data-reset", "reset");
+  resetButton.textContent = "Reset";
+  startButton.parentNode.insertBefore(resetButton, startButton.nextSibling);
+}
 
+//'<button type="button" data-reset>Reset</button>');
 
 refs.startButton.disabled = true;
+refs.resetButton.disabled = true;
+
 refs.startButton.addEventListener('click', clickStart);
+refs.resetButton.addEventListener('click', clickReset);
+
 let period = null;
+let timer = null;
 
 function clickStart() {
   refs.startButton.disabled = true;
   refs.datetimePicker.disabled = true;
-
-const timer = setInterval(() => {
+  refs.resetButton.disabled = false;
+  timer = setInterval(() => {
   let convertPeriod = convertMs(period);
   period -= 1000;
   refs.days.textContent = convertPeriod.days;
@@ -36,6 +52,18 @@ const timer = setInterval(() => {
   }, 1000)
 }
 
+
+function clickReset()
+{
+  clearInterval(timer)
+  refs.days.textContent = "00";
+  refs.hours.textContent = "00";
+  refs.minutes.textContent = "00";
+  refs.seconds.textContent = "00";
+  refs.startButton.disabled = false;
+  refs.datetimePicker.disabled = false;
+  refs.resetButton.disabled = true;
+ };
 
 
 function dateSelection(selectedDate) {
